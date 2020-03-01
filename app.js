@@ -157,7 +157,7 @@ const winner = () =>{
      if(win === true){
          let html = 
         `<div class="row justify-content-center">
-            <iframe src="https://giphy.com/embed/t1i8KZ7momVs4" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <iframe src="https://giphy.com/embed/4IbDRnr24qrcY" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>`;
          document.querySelector('#targetParent') .innerHTML = html;
     }else{

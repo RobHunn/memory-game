@@ -194,8 +194,8 @@ const reset = () => {
 
 //match maker
 const isMatch = ()=>{
-    if(cardHolder[0] === cardHolder[1] &&  !storeMatched.some((item) => matched.indexOf(item) >= 0)  ){
-        console.log('ture or fales on match check : ',!storeMatched.some((item) => matched.indexOf(item) >= 0));
+    if(cardHolder[0] === cardHolder[1] &&  !storeMatched.some((item) => matched.indexOf(item) >= 0) && matched[0] != matched[1] ){
+        console.log('match check ::: ',!storeMatched.some((item) => matched.indexOf(item) >= 0));
         
         for(var e of matched){
             storeMatched.push(e)

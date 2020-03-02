@@ -3,8 +3,8 @@ const initDeck = document.querySelector('#newDeck');
 const meshow = document.querySelector('#showme');
 const shuffle = document.querySelector('#shuffleDeck');
 const gotCha = document.querySelector('.card-flip');
-let allCards = document.querySelector('#targetParent');
-var deckID = '';
+const allCards = document.querySelector('#targetParent');
+let deckID = '';
 let cardHolder = [];
 let cardHolderFlipBack = [];
 let counter = 0;
@@ -44,7 +44,7 @@ const myFunc = async () => {
   }
 }
 
-// hit api to shuffle deck - no need to waste it. rest all data...
+// hit api to shuffle deck - no need to waste it. reset all data...
 const shuffleDeck = async ()=>{
     //reset grid
      if(win === true){
@@ -65,7 +65,7 @@ const shuffleDeck = async ()=>{
             </div>
         </div>
         `;
-         document.querySelector('#targetParent') .innerHTML = html;
+         document.querySelector('#targetParent').innerHTML = html;
     }
 
     try {
@@ -139,27 +139,51 @@ const handelCounter = () => {
     html.innerText =`${counter}`
 }
 
+// not my function- taken from animate.css docs page
+function animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName, 'slow')
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+}
+
 // score keeper
 const handelScore = () => {
-    let html=''
+    let html='';
+    animateCSS('.score-target', 'heartBeat', function() {
+    handleAnimationEnd()
+})
     score =  (storeMatched.length / 2) * 10
     console.log(score);
     if(score == 260){
         win = true
     }else{
         win = false
-    }    
+    }
     html = document.querySelector('#score-html');
-    html.innerText =`${score}`
+    html.innerText =`${score}`;
     winner();
 }
+
+//is winner?
 const winner = () =>{
      if(win === true){
+        animateCSS('#targetParent', 'hinge', function() {
+        handleAnimationEnd()
+        })
          let html = 
         `<div class="row justify-content-center">
             <iframe src="https://giphy.com/embed/4IbDRnr24qrcY" width="480" height="240" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>`;
-         document.querySelector('#targetParent') .innerHTML = html;
+        setTimeout(() => {
+            document.querySelector('#targetParent').innerHTML = html;
+        }, 2000); 
     }else{
         return
     }
@@ -195,8 +219,6 @@ const reset = () => {
 //match maker
 const isMatch = ()=>{
     if(cardHolder[0] === cardHolder[1] &&  !storeMatched.some((item) => matched.indexOf(item) >= 0) && matched[0] != matched[1] ){
-        console.log('match check ::: ',!storeMatched.some((item) => matched.indexOf(item) >= 0));
-        
         for(var e of matched){
             storeMatched.push(e)
         }
@@ -236,7 +258,7 @@ const handleClick = (e) => {
             }, 900)
             setTimeout(() => {
                 clear();
-            }, 1200);
+            }, 1000);
         } else if(cardHolderFlipBack.length >= 2 && match === true){
             handelScore();
             clear() ;

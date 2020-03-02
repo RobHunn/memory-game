@@ -3,9 +3,11 @@
 }
 
 .flip-card {
+  box-sizing: border-box;
+  display: inline-block;
   background-color: transparent;
-  margin-bottom: 100px;
-  margin-right:50px;
+  margin-bottom: 99px;
+  margin-right:47px;
   perspective: 1000px; /* 3D effect */
 }
 
@@ -18,19 +20,8 @@
   transform-style: preserve-3d;
 }
 
-
 .flippyFlip{
   transform: rotateY(180deg);
-}
-
-.op{
-  opacity: .5;
-  pointer-events: none;
-}
-
-.matchedOnes{
-  opacity: .5;
-  pointer-events: none;
 }
 
 /* Position the front and back side */
@@ -44,5 +35,7 @@
 
 /* Style the back side */
 .flip-card-back {
+  height: 100%;
+  width: 100%;
   transform: rotateY(180deg);    
 }
